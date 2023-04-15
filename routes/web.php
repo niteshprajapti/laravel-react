@@ -16,16 +16,15 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return Inertia::render('Home');
 });
 
-Route::get('/page2', function () {
-    return Inertia::render('Page2');
-})->name('page2');
+Route::get('/address-page', function () {
+    return Inertia::render('AddressPage');
+})->name('address-page');
+
+Route::get('/thankyou', function () {
+    return Inertia::render('Thankyou');
+})->name('thankyou');
 
 require __DIR__.'/auth.php';

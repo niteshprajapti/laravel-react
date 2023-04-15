@@ -7,7 +7,8 @@ import { render } from 'react-dom';
 import { createInertiaApp } from '@inertiajs/inertia-react';
 import { InertiaProgress } from '@inertiajs/progress';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
-import Page2 from './Pages/Page2';
+import AddressPage from './Pages/AddressPage';
+import Thankyou from './Pages/Thankyou';
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 
@@ -19,8 +20,8 @@ createInertiaApp({
             <BrowserRouter>
                 <Routes>
                     <Route path='/' element={ <App {...props} />} />
-                    <Route exact path='/page2' element={  <Page2 />}/>
-
+                    <Route exact path='/address-page' element={  <AddressPage />}/>
+                    <Route exact path='/thankyou' element={  <Thankyou />}/>
                 </Routes>
             </BrowserRouter>, el
 

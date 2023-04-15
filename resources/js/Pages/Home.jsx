@@ -6,7 +6,7 @@ import Header from '../common/Header'
 import Footer from '../common/Footer'
 import bnr from '../dist/img/bnr.jpg'
 
-export default function Welcome(props) {
+export default function Home(props) {
     let History = useNavigate()
     const [userInfo, setUserInfo] = useState([]);
     const [personalDetail, setPersonalDetail] = useState(true);
@@ -39,8 +39,8 @@ export default function Welcome(props) {
           .then(response => {
 
             if (parseInt(response.status) == 200) {
-                localStorage.setItem('user', JSON.stringify(response.result));
-                History('/page2');
+                localStorage.setItem('user', JSON.stringify(response.data));
+                History('/address-page');
             }
 
           })
