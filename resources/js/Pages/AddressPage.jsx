@@ -11,7 +11,7 @@ export default function AddressPage(props) {
 
     const onSelect = (e) => {
         if (e === 'yes') {
-
+            History('/add-address');
         }else{
             History('/thankyou');
         }

@@ -23,6 +23,10 @@ Route::get('/address-page', function () {
     return Inertia::render('AddressPage');
 })->name('address-page');
 
+Route::get('/add-address', function () {
+    return Inertia::render('AddressPage');
+})->name('add-address');
+
 Route::get('/thankyou', function () {
     return Inertia::render('Thankyou');
 })->name('thankyou');

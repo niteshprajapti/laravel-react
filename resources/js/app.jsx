@@ -9,6 +9,7 @@ import { InertiaProgress } from '@inertiajs/progress';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import AddressPage from './Pages/AddressPage';
 import Thankyou from './Pages/Thankyou';
+import Addaddress from './Pages/Addaddress';
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 
@@ -21,6 +22,7 @@ createInertiaApp({
                 <Routes>
                     <Route path='/' element={ <App {...props} />} />
                     <Route exact path='/address-page' element={  <AddressPage />}/>
+                    <Route exact path='/add-address' element={  <Addaddress />}/>
                     <Route exact path='/thankyou' element={  <Thankyou />}/>
                 </Routes>
             </BrowserRouter>, el

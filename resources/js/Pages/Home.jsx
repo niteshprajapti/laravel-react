@@ -11,7 +11,7 @@ export default function Home(props) {
     const [userInfo, setUserInfo] = useState([]);
     const [personalDetail, setPersonalDetail] = useState(true);
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const { register : register2, handleSubmit : submit2, formState: { errors: errors2 }, post } = useForm();
+    const { register : register2, setError, handleSubmit : submit2, formState: { errors: errors2 }, post } = useForm();
     const onSubmit = data => {
         setUserInfo(data);
         setPersonalDetail(false)
@@ -38,9 +38,22 @@ export default function Home(props) {
           .then(response => response.json())
           .then(response => {
 
+            let message = response.message;
             if (parseInt(response.status) == 200) {
                 localStorage.setItem('user', JSON.stringify(response.data));
                 History('/address-page');
+            }else{
+
+                let errorV = message.substring(4, 9);
+                console.log(errorV);
+                if (response.messages.length  === 1) {
+                    setError(errorV, { type: "focus", message: 'The email already used!' }, { shouldFocus: true });
+
+                }else{
+                    setError("email", { type: "focus", message: 'The Email already used!' }, { shouldFocus: true });
+                    setError("phoneNumber", { type: "focus", message: 'The Phone Number already used!' }, { shouldFocus: true });
+                }
+
             }
 
           })
