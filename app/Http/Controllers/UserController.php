@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\BrowserDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Traits\ApiResponse;
 use Illuminate\Validation\Rule;
+use Jenssegers\Agent\Facades\Agent;
+
 
 class UserController extends Controller
 {
@@ -17,9 +20,35 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $ip = $request->ip();
+        // $userDetail = Location::get($request->ip());
+        preg_match('#\((.*?)\)#', $request->userAgent(), $match);
+        $userSystemInfo = explode(';', $match[1]);
+        $userAgent = $request->userAgent(); // User Agent
+        $browser = Agent::browser(); // User browser
+        $matchLength = count($userSystemInfo);
+
+        if ($matchLength > 1) {
+            $deviceName = ltrim($userSystemInfo[1]);
+        }
+
+        $detail =  BrowserDetail::where(['ip' => $ip, 'browser' => $browser, 'userAgent' => $userAgent])->first();
+        if ($detail) {
+            return $this->successResponse([
+                'message' => "Already added info!"
+            ]);
+        }
+
+        $detail = new BrowserDetail();
+        $detail->ip = $ip;
+        $detail->userAgent = $userAgent;
+        $detail->browser = $browser;
+        $detail->deviceName = $deviceName;
+        $detail->save();
+
+
     }
 
     /**

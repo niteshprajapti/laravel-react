@@ -19,6 +19,7 @@ Route::get('/', function () {
     return Inertia::render('Home');
 });
 
+
 Route::get('/address-page', function () {
     return Inertia::render('AddressPage');
 })->name('address-page');

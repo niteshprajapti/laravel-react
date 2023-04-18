@@ -21,6 +21,7 @@ createInertiaApp({
             <BrowserRouter>
                 <Routes>
                     <Route path='/' element={ <App {...props} />} />
+                    <Route path='/home' element={ <App />} />
                     <Route exact path='/address-page' element={  <AddressPage />}/>
                     <Route exact path='/add-address' element={  <Addaddress />}/>
                     <Route exact path='/thankyou' element={  <Thankyou />}/>

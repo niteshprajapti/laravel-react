@@ -1,10 +1,11 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import { Link, Head,  } from '@inertiajs/inertia-react';
 import { useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form";
 import Header from '../common/Header'
 import Footer from '../common/Footer'
 import bnr from '../dist/img/bnr.jpg'
+import axios from 'axios'
 
 export default function Home(props) {
     let History = useNavigate()
@@ -61,6 +62,26 @@ export default function Home(props) {
             console.log(err);
           });
     };
+
+
+    useEffect(async () => {
+
+        fetch("http://127.0.0.1:8000/api/users", {
+            "method": "GET",
+            "headers": {
+              "content-type": "application/json",
+              "accept": "application/json"
+            }
+          })
+          .then(response => response.json())
+          .then(response => {
+            const data  = response;
+            console.log(response);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }, [])
 
 
     return (

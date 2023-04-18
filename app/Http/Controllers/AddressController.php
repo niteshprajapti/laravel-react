@@ -44,31 +44,36 @@ class AddressController extends Controller
         try {
             DB::beginTransaction();
 
-            $validator = Validator::make($request->all(), [
-                'data' => 'required',
-            ]);
+            for ($i=0; $i <= 2 ; $i++) {
+                $address = new Address();
+                $address->user_id = $request->user_id;
+                if ($request->has("address_line1".$i)) {
 
-            if ($validator->fails()) {
-                return $this->failResponse([
-                    "message" => $validator->messages()->all()[0],
-                    "messages" => $validator->messages()->all()
-                ], 422);
+                    $validator = Validator::make($request->all(), [
+                        'address_line1'.$i => 'required',
+                        'address_line2'.$i => 'required',
+                        'address_line3'.$i => 'required',
+                    ]);
+
+                    if ($validator->fails()) {
+                        return $this->failResponse([
+                            "message" => $validator->messages()->all()[0],
+                            "messages" => $validator->messages()->all()
+                        ], 422);
+                    }
+
+                    $address->address_line1 = $request->address_line1.$i;
+                    $address->address_line2 = $request->address_line2.$i;
+                    $address->address_line3 = $request->address_line3.$i;
+                    $address->save();
+                }
+
             }
-            dd($request->all());
-
-            $user = new Address();
-            $user->first_name = $request->first_name;
-            $user->last_name = $request->last_name;
-            $user->dob = $request->dob;
-            $user->phoneNumber = $request->phoneNumber;
-            $user->email = $request->email;
-            $user->save();
 
             DB::commit();
 
             return $this->successResponse([
-                'data' => $user,
-                'message' => "Details Added Successfully!"
+                'message' => "Address Added Successfully!"
             ]);
 
 
